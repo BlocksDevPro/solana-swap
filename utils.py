@@ -24,8 +24,7 @@ POOLS_FILE = './assets/pools.json'
 class Pool:
     def __init__(self, client: Client):
         self.client = client
-        # TLCache(maxsize=100, ttl=60) it should refetch for new pools
-        self.pools = {'data': True}
+        self.pools = TTLCache(maxsize=100, ttl=60)
 
     def get_pools(self):
         with open(POOLS_FILE, 'r') as file:
